@@ -2,7 +2,7 @@
     "compilerOptions": {
         "outDir": "es6/",
         "target": "es6",
-        "declaration": false,
+        "declaration": true,
         "jsx": "react",
         "module": "commonjs",
         "moduleResolution": "node",

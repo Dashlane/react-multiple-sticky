@@ -3,12 +3,14 @@
   "version": "0.0.3",
   "description": "React component to implement multiple sticky elements when parent container is scrolling",
   "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "npm run clean && tsc && babel es6 -d dist",
+    "build": "npm run clean && tsc && babel es6 -d dist && npm run copy-declarations",
     "clean": "n-clean dist && n-clean es6",
+    "copy-declarations": "n-copy --source es6 --destination dist *.d.ts",
     "prepublish": "npm run build",
     "typings": "n-clean typings && typings install"
   },
