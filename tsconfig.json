@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "outDir": "es6/",
+        "target": "es6",
+        "declaration": false,
+        "jsx": "react",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "suppressImplicitAnyIndexErrors": true
+    },
+    "exclude": [
+        "dist",
+        "node_modules",
+        "es6"
+    ],
+    "compileOnSave": false
+}
