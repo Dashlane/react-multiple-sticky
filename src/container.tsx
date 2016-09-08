@@ -48,19 +48,23 @@ export default class StickyContainer extends React.Component<Props, State> {
     </div>
   }
 
-  private onScrollHandler = (e: React.MouseEvent) => {
+  public refresh() {
+    this.onScrollHandler()
+  }
+
+  private onScrollHandler = () => {
     if (scheduled) {
       return
     }
-    const container = e.target as HTMLElement
     scheduled = true
     window.requestAnimationFrame(() => {
-      this.stickyHeaderHandler(container)
+      this.stickyHeaderHandler()
       scheduled = false
     })
   }
 
-  private stickyHeaderHandler = (container: HTMLElement) => {
+  private stickyHeaderHandler = () => {
+    const container = this.refs.container
     const sticky = this.state.key ? ReactDOM.findDOMNode(this.refs[this.state.key]) as HTMLElement : null
     const state: any = {
       key: null,
