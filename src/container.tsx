@@ -104,12 +104,9 @@ export default class StickyContainer extends React.Component<Props, State> {
         if (container.scrollTop + 2 >= offsetTop) {
           if (node && node.top && node.top >= offsetTop) return
           // In case we're scrolling back and reach previous sticky header
-          const top = container.scrollTop + element.offsetHeight > offsetTop
-            ? offsetTop - element.offsetHeight
-            : null
           node = {
             ref,
-            top: top || offsetTop,
+            top: offsetTop - element.offsetHeight,
             height: element.getBoundingClientRect().height,
             width: element.getBoundingClientRect().width
           }
