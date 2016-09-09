@@ -58,6 +58,14 @@ export default class StickyContainer extends React.Component<Props, State> {
     this.refs.container.scrollTop = 0
   }
 
+  public currentStickyElementIdentifier() {
+    const currentStickyElement = this.refs[this.state.ref] as StickyElement
+    if(!currentStickyElement) {
+      return
+    }
+    return currentStickyElement.props.identifier
+  }
+
   private onScrollHandler = () => {
     if (scheduled) {
       return
