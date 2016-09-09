@@ -113,7 +113,7 @@ export default class StickyContainer extends React.Component<Props, State> {
           sticky = element
         } else if (sticky) {
           // In case we're scrolling back
-          if (container.scrollTop + sticky.offsetHeight > offsetTop) {
+          if (container.scrollTop + sticky.offsetHeight >= offsetTop) {
             state.top = offsetTop - sticky.offsetHeight
           }
         }
