@@ -12,7 +12,7 @@ export interface Props extends React.Props<StickyContainer> {
 }
 
 export interface State {
-  key: string
+  ref: string
   top: number
   height: number
   width: number
@@ -29,7 +29,7 @@ export default class StickyContainer extends React.Component<Props, State> {
   public constructor(props: Props) {
     super(props)
     this.state = {
-      key: null,
+      ref: null,
       top: 0,
       height: 0,
       width: 0
@@ -71,15 +71,15 @@ export default class StickyContainer extends React.Component<Props, State> {
 
   private stickyHeaderHandler = () => {
     const container = this.refs.container
-    const sticky = this.state.key ? ReactDOM.findDOMNode(this.refs[this.state.key]) as HTMLElement : null
+    const sticky = this.state.ref ? ReactDOM.findDOMNode(this.refs[this.state.ref]) as HTMLElement : null
     const state: any = {
-      key: null,
+      ref: null,
       top: null,
       height: 0,
       width: 0
     }
     let node: any = {
-      key: this.state.key,
+      ref: this.state.ref,
       top: sticky ? sticky.offsetTop : null,
       height: sticky ? sticky.getBoundingClientRect().height : 0,
       width: sticky ? sticky.getBoundingClientRect().width : 0
@@ -88,9 +88,9 @@ export default class StickyContainer extends React.Component<Props, State> {
       node = state
     }
     Object.keys(this.refs)
-      .filter(key => key.startsWith('sticky_') && key !== this.state.key)
-      .forEach(key => {
-        const element = ReactDOM.findDOMNode(this.refs[key]) as HTMLElement
+      .filter(ref => ref.startsWith('sticky_') && ref !== this.state.ref)
+      .forEach(ref => {
+        const element = ReactDOM.findDOMNode(this.refs[ref]) as HTMLElement
         const offsetTop = element.offsetTop
         if (container.scrollTop > offsetTop) {
           if (node && node.top && node.top > offsetTop) return
@@ -99,7 +99,7 @@ export default class StickyContainer extends React.Component<Props, State> {
             ? offsetTop - element.offsetHeight
             : null
           node = {
-            key,
+            ref,
             top: top || offsetTop,
             height: element.getBoundingClientRect().height,
             width: element.getBoundingClientRect().width
@@ -111,9 +111,9 @@ export default class StickyContainer extends React.Component<Props, State> {
           }
         }
       })
-    if (node && node.key) {
-      if (node.key === this.state.key && state.top === this.state.top) return
-      state.key = node.key
+    if (node && node.ref) {
+      if (node.ref === this.state.ref && state.top === this.state.top) return
+      state.ref = node.ref
       state.height = node.height
       state.width = node.width
     }
@@ -121,7 +121,7 @@ export default class StickyContainer extends React.Component<Props, State> {
   }
 
   private getCover = () => {
-    if (!this.state.key)
+    if (!this.state.ref)
       return null
     const style = {
       width: this.state.width + 'px',
@@ -135,9 +135,9 @@ export default class StickyContainer extends React.Component<Props, State> {
   }
 
   private getSticky = () => {
-    if (!this.state.key)
+    if (!this.state.ref)
       return null
-    const sticky = this.refs[this.state.key] as StickyElement
+    const sticky = this.refs[this.state.ref] as StickyElement
     const style = Object.assign({}, {
       width: this.state.width + 'px',
       height: this.state.height + 'px',
@@ -159,7 +159,7 @@ export default class StickyContainer extends React.Component<Props, State> {
           ref: `sticky_${idx}`,
           style: {
             position: 'relative',
-            zIndex: this.state.key === `sticky_${idx}` ? 5 : 15
+            zIndex: this.state.ref === `sticky_${idx}` ? 5 : 15
           }
         })
       }
