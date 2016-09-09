@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 export interface Props extends React.Props<StickyElement> {
+  identifier?: string
   style?: React.CSSProperties
   className?: string
 }
