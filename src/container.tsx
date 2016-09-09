@@ -37,7 +37,7 @@ export default class StickyContainer extends React.Component<Props, State> {
   }
 
   public render() {
-    const style = Object.assign({}, this.props.style, { overflowY: 'auto' })
+    const style = Object.assign({}, this.props.style, { overflowY: 'auto', position: 'relative', zIndex: 100 })
     const contentStyle = Object.assign({}, this.props.contentStyle, { position: 'relative' })
     return <div ref="container" style={style} onScroll={this.onScrollHandler} className={this.props.className}>
       <div className={this.props.contentClassName} style={contentStyle}>
@@ -153,7 +153,7 @@ export default class StickyContainer extends React.Component<Props, State> {
           ref: `sticky_${idx}`,
           style: {
             position: 'relative',
-            zIndex: this.state.key === `sticky_${idx}` ? -15 : 15
+            zIndex: this.state.key === `sticky_${idx}` ? 5 : 15
           }
         })
       }
