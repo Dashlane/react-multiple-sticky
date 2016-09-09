@@ -100,8 +100,9 @@ export default class StickyContainer extends React.Component<Props, State> {
       .forEach(ref => {
         const element = ReactDOM.findDOMNode(this.refs[ref]) as HTMLElement
         const offsetTop = element.offsetTop
-        if (container.scrollTop > offsetTop) {
-          if (node && node.top && node.top > offsetTop) return
+        // Snap to grid of 2px to avoid side effect due to zoom and non-integer pixel values
+        if (container.scrollTop + 2 >= offsetTop) {
+          if (node && node.top && node.top >= offsetTop) return
           // In case we're scrolling back and reach previous sticky header
           const top = container.scrollTop + element.offsetHeight > offsetTop
             ? offsetTop - element.offsetHeight
@@ -157,7 +158,11 @@ export default class StickyContainer extends React.Component<Props, State> {
     return <div
       className={this.props.stickyClassName}
       style={style}>
-      {React.createElement(StickyElement, sticky.props) }
+      {React.createElement(StickyElement, Object.assign({}, sticky.props, {
+        style: Object.assign({}, sticky.props.style || {}, {
+          visibility: 'visible'
+        })
+      })) }
     </div>
   }
 
@@ -168,6 +173,7 @@ export default class StickyContainer extends React.Component<Props, State> {
           ref: `sticky_${idx}`,
           style: {
             position: 'relative',
+            visibility: this.state.ref === `sticky_${idx}` ? 'hidden' : 'visible',
             zIndex: this.state.ref === `sticky_${idx}` ? 5 : 15
           }
         })
