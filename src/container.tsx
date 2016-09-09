@@ -79,7 +79,7 @@ export default class StickyContainer extends React.Component<Props, State> {
 
   private stickyHeaderHandler = () => {
     const container = this.refs.container
-    const sticky = this.state.ref ? ReactDOM.findDOMNode(this.refs[this.state.ref]) as HTMLElement : null
+    let sticky = this.state.ref ? ReactDOM.findDOMNode(this.refs[this.state.ref]) as HTMLElement : null
     const state: any = {
       ref: null,
       top: null,
@@ -96,7 +96,7 @@ export default class StickyContainer extends React.Component<Props, State> {
       node = state
     }
     Object.keys(this.refs)
-      .filter(ref => ref.startsWith('sticky_') && ref !== this.state.ref)
+      .filter(ref => ref.startsWith('sticky_'))
       .forEach(ref => {
         const element = ReactDOM.findDOMNode(this.refs[ref]) as HTMLElement
         const offsetTop = element.offsetTop
@@ -112,6 +112,7 @@ export default class StickyContainer extends React.Component<Props, State> {
             height: element.getBoundingClientRect().height,
             width: element.getBoundingClientRect().width
           }
+          sticky = element
         } else if (sticky) {
           // In case we're scrolling back
           if (container.scrollTop + sticky.offsetHeight > offsetTop) {
