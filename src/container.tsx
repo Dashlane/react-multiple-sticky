@@ -52,7 +52,7 @@ export default class StickyContainer extends React.Component<Props, State> {
     this.onScrollHandler()
   }
 
-  public srollToTop() {
+  public scrollToTop() {
     // in some cases we want want to reset everything (when for example list of items change).
     // this will also trigger onScrollHandler
     this.refs.container.scrollTop = 0
