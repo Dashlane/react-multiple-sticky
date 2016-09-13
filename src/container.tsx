@@ -127,6 +127,10 @@ export default class StickyContainer extends React.Component<Props, State> {
     this.setState(state)
   }
 
+  private getContainerTopPosition() {
+    return this.refs.container.getBoundingClientRect().top
+  }
+
   private getCover = () => {
     if (!this.state.ref)
       return null
@@ -134,7 +138,7 @@ export default class StickyContainer extends React.Component<Props, State> {
       width: this.state.width + 'px',
       height: this.state.height + 'px',
       position: 'fixed',
-      top: this.refs.container.offsetTop + 'px',
+      top: this.getContainerTopPosition(),
       background: 'white',
       zIndex: 10
     }
@@ -149,7 +153,7 @@ export default class StickyContainer extends React.Component<Props, State> {
       width: this.state.width + 'px',
       height: this.state.height + 'px',
       position: this.state.top !== null ? 'absolute' : 'fixed',
-      top: this.state.top !== null ? this.state.top + 'px' : this.refs.container.offsetTop + 'px',
+      top: this.state.top !== null ? this.state.top : this.getContainerTopPosition(),
       zIndex: 20
     })
     return <div
