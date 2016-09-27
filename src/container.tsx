@@ -79,13 +79,17 @@ export default class StickyContainer extends React.Component<Props, State> {
 
   private stickyHeaderHandler = () => {
     const container = this.refs.container
-    let sticky = this.state.ref ? ReactDOM.findDOMNode(this.refs[this.state.ref]) as HTMLElement : null
     const state: any = {
       ref: null,
       top: null,
       height: 0,
       width: 0
     }
+    if (container.scrollTop === 0) {
+      this.setState(state)
+      return
+    }
+    let sticky = this.state.ref ? ReactDOM.findDOMNode(this.refs[this.state.ref]) as HTMLElement : null
     let node: any = {
       ref: this.state.ref,
       top: sticky ? sticky.offsetTop : null,
