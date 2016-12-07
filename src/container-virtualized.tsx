@@ -1,9 +1,6 @@
-import 'react-virtualized/styles.css'
-
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { debounce } from 'lodash'
-import { AutoSizer, List } from 'react-virtualized'
+import { List } from 'react-virtualized'
 
 import StickyElement, { Props as StickyProps } from './element'
 
@@ -33,7 +30,7 @@ export default class StickyContainerVirtualized extends React.Component<Props, S
   public refs: {
     [k: string]: React.ReactInstance
     container: HTMLDivElement
-    list: List
+    list: React.ReactInstance
   }
 
   public constructor(props: Props) {
