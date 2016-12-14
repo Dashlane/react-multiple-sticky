@@ -146,6 +146,11 @@ export default class StickyContainerVirtualized extends React.Component<Props, S
       return null
     const list = React.Children.toArray(this.props.children)
     const sticky = list[this.state.index] as React.ReactElement<any>
+    if (!sticky) {
+      // In some cases it's possible that the list of items is changed (filtered),
+      // but we still hold an index of old item (which will be updated in next loop)
+      return null
+    }
     const style = {
       width: this.state.width,
       position: 'absolute',
