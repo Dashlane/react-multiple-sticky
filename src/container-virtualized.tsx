@@ -15,6 +15,7 @@ export interface Props extends React.Props<StickyContainerVirtualized> {
   stickyClassName?: string
   style?: React.CSSProperties
   contentStyle?: React.CSSProperties
+  overscanRowCount?: number
   onScroll?: () => void
 }
 
@@ -186,7 +187,7 @@ export default class StickyContainerVirtualized extends React.Component<Props, S
       rowCount={list.length}
       rowHeight={rowHeight}
       rowRenderer={renderRow}
-      overscanRowCount={100}
+      overscanRowCount={this.props.overscanRowCount}
       onScroll={scrollHandler}
       style={{ outline: 'none', overflowX: 'hidden' }}
       />
