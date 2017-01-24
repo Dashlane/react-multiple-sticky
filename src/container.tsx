@@ -7,6 +7,7 @@ export interface Props extends React.Props<StickyContainer> {
   className?: string
   contentClassName?: string
   stickyClassName?: string
+  stickyTransitionClassName?: string
   style?: React.CSSProperties
   contentStyle?: React.CSSProperties
 }
@@ -152,16 +153,20 @@ export default class StickyContainer extends React.Component<Props, State> {
   private getSticky = () => {
     if (!this.state.ref)
       return null
+    const inTransition = this.state.top !== null
     const sticky = this.refs[this.state.ref] as StickyElement
     const style = Object.assign({}, {
       width: this.state.width + 'px',
       height: this.state.height + 'px',
-      position: this.state.top !== null ? 'absolute' : 'fixed',
-      top: this.state.top !== null ? this.state.top : this.getContainerTopPosition(),
+      position: inTransition ? 'absolute' : 'fixed',
+      top: inTransition ? this.state.top : this.getContainerTopPosition(),
       zIndex: 20
     })
+    const className = inTransition
+      ? this.props.stickyTransitionClassName
+      : this.props.stickyClassName
     return <div
-      className={this.props.stickyClassName}
+      className={className}
       style={style}>
       {React.createElement(StickyElement, Object.assign({}, sticky.props, {
         style: Object.assign({}, sticky.props.style || {}, {
