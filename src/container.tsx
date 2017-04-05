@@ -155,6 +155,13 @@ export default class StickyContainer extends React.Component<Props, State> {
       return null
     const inTransition = this.state.top !== null
     const sticky = this.refs[this.state.ref] as StickyElement
+
+    if (!sticky) {
+      // In some cases it's possible that the list of items is changed (filtered),
+      // but we still hold an index of old item (which will be updated in next loop)
+      return null
+    }
+
     const style = Object.assign({}, {
       width: this.state.width + 'px',
       height: this.state.height + 'px',
