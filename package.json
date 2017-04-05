@@ -1,6 +1,6 @@
 {
   "name": "react-multiple-sticky",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React component to implement multiple sticky elements when parent container is scrolling",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
