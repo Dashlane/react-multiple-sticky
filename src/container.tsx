@@ -90,16 +90,10 @@ export default class StickyContainer extends React.Component<Props, State> {
       this.setState(state)
       return
     }
-    let sticky = this.state.ref ? ReactDOM.findDOMNode(this.refs[this.state.ref]) as HTMLElement : null
-    let node: any = {
-      ref: this.state.ref,
-      top: sticky ? sticky.offsetTop : null,
-      height: sticky ? sticky.getBoundingClientRect().height : 0,
-      width: sticky ? sticky.getBoundingClientRect().width : 0
-    }
-    if (sticky && sticky.offsetTop >= container.scrollTop) {
-      node = state
-    }
+
+    let sticky: HTMLElement = null
+    let node: any = state
+
     Object.keys(this.refs)
       .filter(ref => ref.startsWith('sticky_'))
       .forEach(ref => {
