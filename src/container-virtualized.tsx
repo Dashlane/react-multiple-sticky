@@ -44,8 +44,8 @@ export default class StickyContainerVirtualized extends React.Component<Props, S
   }
 
   public render() {
-    const style = Object.assign({}, this.props.style, { overflowY: 'auto', position: 'relative', zIndex: 100 })
-    const contentStyle = Object.assign({}, this.props.contentStyle, { position: 'relative' })
+    const style = Object.assign({}, { overflowY: 'auto', position: 'relative', zIndex: 100 }, this.props.style)
+    const contentStyle = Object.assign({}, { position: 'relative' }, this.props.contentStyle)
     return <div ref="container" style={style} className={this.props.className}>
       <div className={this.props.contentClassName} style={contentStyle}>
         {this.props.disableStickyHeader ? null : this.getCover() }
