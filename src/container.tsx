@@ -38,8 +38,8 @@ export default class StickyContainer extends React.Component<Props, State> {
   }
 
   public render() {
-    const style = Object.assign({}, this.props.style, { overflowY: 'auto', position: 'relative', zIndex: 100 })
-    const contentStyle = Object.assign({}, this.props.contentStyle, { position: 'relative' })
+    const style = Object.assign({}, { overflowY: 'auto', position: 'relative', zIndex: 100 }, this.props.style)
+    const contentStyle = Object.assign({}, { position: 'relative' }, this.props.contentStyle)
     return <div ref="container" style={style} onScroll={this.onScrollHandler} className={this.props.className}>
       <div className={this.props.contentClassName} style={contentStyle}>
         {this.getCover() }
@@ -133,7 +133,7 @@ export default class StickyContainer extends React.Component<Props, State> {
   private getCover = () => {
     if (!this.state.ref)
       return null
-    const style = {
+    const style: React.CSSProperties = {
       width: this.state.width + 'px',
       height: this.state.height + 'px',
       position: 'fixed',
@@ -156,13 +156,13 @@ export default class StickyContainer extends React.Component<Props, State> {
       return null
     }
 
-    const style = Object.assign({}, {
+    const style: React.CSSProperties = {
       width: this.state.width + 'px',
       height: this.state.height + 'px',
       position: inTransition ? 'absolute' : 'fixed',
       top: inTransition ? this.state.top : this.getContainerTopPosition(),
       zIndex: 20
-    })
+    }
     const className = inTransition
       ? this.props.stickyTransitionClassName
       : this.props.stickyClassName
