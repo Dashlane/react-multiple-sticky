@@ -133,7 +133,7 @@ export default class StickyContainer extends React.Component<Props, State> {
   private getCover = () => {
     if (!this.state.ref)
       return null
-    const style = {
+    const style: React.CSSProperties = {
       width: this.state.width + 'px',
       height: this.state.height + 'px',
       position: 'fixed',
@@ -156,13 +156,13 @@ export default class StickyContainer extends React.Component<Props, State> {
       return null
     }
 
-    const style = Object.assign({}, {
+    const style: React.CSSProperties = {
       width: this.state.width + 'px',
       height: this.state.height + 'px',
       position: inTransition ? 'absolute' : 'fixed',
       top: inTransition ? this.state.top : this.getContainerTopPosition(),
       zIndex: 20
-    })
+    }
     const className = inTransition
       ? this.props.stickyTransitionClassName
       : this.props.stickyClassName

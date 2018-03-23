@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { List } from 'react-virtualized'
+import { List, ListRowRenderer, Index } from 'react-virtualized'
 
 import StickyElement, { Props as StickyProps } from './element'
 
@@ -130,7 +130,7 @@ export default class StickyContainerVirtualized extends React.Component<Props, S
   private getCover = () => {
     if (this.state.index === null || this.state.top !== 0)
       return null
-    const style = {
+    const style: React.CSSProperties = {
       width: this.state.width,
       height: this.props.stickyElementHeight || this.props.elementHeight,
       position: 'absolute',
@@ -152,7 +152,7 @@ export default class StickyContainerVirtualized extends React.Component<Props, S
       // but we still hold an index of old item (which will be updated in next loop)
       return null
     }
-    const style = {
+    const style: React.CSSProperties = {
       width: this.state.width,
       position: 'absolute',
       top: this.state.top,
@@ -168,12 +168,12 @@ export default class StickyContainerVirtualized extends React.Component<Props, S
   private getChildren = () => {
     const stickyHeight = this.props.stickyElementHeight || this.props.elementHeight
     const list = React.Children.toArray(this.props.children)
-    const renderRow = ({ index, key, style }) => {
+    const renderRow: ListRowRenderer = ({ index, key, style }) => {
       const child = list[index] as React.ReactElement<any>
       const finalStyle = Object.assign({}, style, child.props.style)
       return React.cloneElement(child, Object.assign({}, child.props, { style: finalStyle }))
     }
-    const rowHeight = ({ index}) => {
+    const rowHeight = ({ index }: Index) => {
       const child = list[index] as React.ReactElement<any>
       return child.type === StickyElement ? stickyHeight : this.props.elementHeight
     }
